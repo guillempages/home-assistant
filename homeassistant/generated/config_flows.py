@@ -189,6 +189,7 @@ FLOWS = [
     "syncthru",
     "synology_dsm",
     "tado",
+    "tankerkoenig",
     "tasmota",
     "tellduslive",
     "tesla",

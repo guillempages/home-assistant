@@ -1,0 +1,43 @@
+{
+  "config": {
+    "abort": {
+      "single_instance_allowed": "[%key:common::config_flow::abort::single_instance_allowed%]"
+    },
+    "error": {
+      "invalid_api_key": "[%key:common::config_flow::error::invalid_api_key%]",
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "no_fuel_selected": "At least one fuel type must be monitored"
+    },
+    "step": {
+      "user": {
+        "title": "Tankerkoenig",
+        "description": "Setup the Tankerkoenig integration. If you need help with the configuration have a look here: https://www.home-assistant.io/integrations/tankerkoenig/",
+        "data": {
+          "api_key": "[%key:common::config_flow::data::api_key%]",
+          "latitude": "[%key:common::config_flow::data::latitude%]",
+          "longitude": "[%key:common::config_flow::data::longitude%]",
+          "radius": "Radius",
+          "show_on_map": "Show on map"
+        }
+      },
+      "fuel": {
+        "title": "Tankerkoenig",
+        "description": "Please select which fuel types to monitor",
+        "data": {
+          "e10": "E10",
+          "e5": "E5",
+          "diesel": "Diesel"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "show_on_map": "Show on map"
+        }
+      }
+    }
+  }
+}

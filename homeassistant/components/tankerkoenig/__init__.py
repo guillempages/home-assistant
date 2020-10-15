@@ -61,6 +61,41 @@ CONFIG_SCHEMA = vol.Schema(
 )
 
 
+async def async_setup_entry(hass, config) -> bool:
+    """Set the tankerkoenig component up."""
+    conf = config.data
+
+    _LOGGER.debug("Setting up integration")
+
+    tankerkoenig = TankerkoenigData(hass, conf)
+
+    latitude = conf[CONF_LATITUDE]
+    longitude = conf[CONF_LONGITUDE]
+    radius = conf[CONF_RADIUS]
+    additional_stations = conf.get(CONF_STATIONS, [])
+
+    setup_ok = await hass.async_add_executor_job(
+        tankerkoenig.setup, latitude, longitude, radius, additional_stations
+    )
+    if not setup_ok:
+        _LOGGER.error("Could not setup integration")
+        return False
+
+    hass.data[DOMAIN] = tankerkoenig
+
+    hass.async_create_task(
+        async_load_platform(
+            hass,
+            SENSOR_DOMAIN,
+            DOMAIN,
+            discovered=tankerkoenig.stations,
+            hass_config=conf,
+        )
+    )
+
+    return True
+
+
 async def async_setup(hass, config):
     """Set the tankerkoenig component up."""
     if DOMAIN not in config:
